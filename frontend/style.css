@@ -183,3 +183,22 @@ small{
     font-size: 34px;
     color: #ff523b;
 }
+
+/* <!------------------brands----------------------------->/ */
+
+
+.brands{
+    margin: 100px auto;
+}
+.col-5{
+    width: 100px;
+}
+.col-5 img{
+    width: 100px;
+    cursor: pointer;
+    filter: grayscale(100%);
+}
+
+.col-5 img:hover{
+    filter: grayscale(0);
+}
