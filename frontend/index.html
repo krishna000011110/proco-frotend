@@ -1,558 +1,579 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PROCO</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/css/fontawesome.min.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Smart Timetable App</title>
+<style>
+  :root{
+    --accent:#0b84ff;
+    --muted:#666;
+    --card:#fff;
+    --bg:#f4f7fb;
+    --glass: rgba(255,255,255,0.8);
+  }
+  *{box-sizing:border-box;font-family:Inter, system-ui, Arial;}
+  body{margin:0;background:linear-gradient(180deg,#eef6ff 0%, #f8fbff 100%);color:#111;}
+  .container{max-width:980px;margin:28px auto;padding:18px;}
+  .card{background:var(--card);border-radius:12px;box-shadow:0 6px 24px rgba(20,30,60,0.08);padding:18px;}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;}
+  h1{font-size:20px;margin:0;}
+  small{color:var(--muted)}
+  .row{display:flex;gap:12px;flex-wrap:wrap;}
+  .col{flex:1;min-width:220px;}
+  label{display:block;font-size:13px;margin-bottom:6px;color:var(--muted);}
+  input,select,button,textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e3e8ef;background:transparent;}
+  button{cursor:pointer;background:var(--accent);color:#fff;border:none;padding:10px 12px;font-weight:600;}
+  .secondary{background:#fff;border:1px solid #e3e8ef;color:#111;}
+  .timetable-wrap{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;}
+  .left{flex:1;min-width:300px;}
+  .right{flex:1;min-width:300px;}
+  .img-wrap{border-radius:8px;overflow:hidden;border:1px solid #e8eef8;height:100%}
+  .img-wrap img{width:100%;height:100%;object-fit:contain;display:block;}
+  table{width:100%;border-collapse:collapse;margin-top:8px;}
+  th,td{border:1px solid #e8eef8;padding:8px;text-align:center;font-size:13px;}
+  th{background:linear-gradient(90deg,#f6fbff,#ffffff);font-weight:700;}
+  .header-bar{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px;border-radius:8px;background:linear-gradient(90deg,#0b84ff22,#fff);margin-bottom:12px;}
+  .current{font-weight:700;font-size:16px;}
+  .countdown{font-size:16px;color:var(--muted);}
+  .controls{display:flex;gap:8px;align-items:center;}
+  .edit-row{display:flex;gap:8px;margin-top:8px;}
+  .day-select{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+  .chip{padding:8px 10px;border-radius:999px;border:1px solid #e3e8ef;background:#fff;cursor:pointer;}
+  .chip.active{background:var(--accent);color:#fff;border:none;}
+  .editable td{background:#fbfdff}
+  .note{font-size:13px;color:var(--muted);margin-top:8px}
+  @media(max-width:880px){
+    header{flex-direction:column;align-items:flex-start;gap:10px;}
+    .timetable-wrap{flex-direction:column;}
+  }
+</style>
 </head>
 <body>
-  <div class="header">
   <div class="container">
-<div class="navbar">
-    <div class="logo">
-      <img src="logo.png" width="115px">
-    </div>
+    <div id="app" class="card">
+      <!-- LOGIN / DETAILS -->
+      <div id="detailsView">
+        <header>
+          <div>
+            <h1>Smart Timetable App</h1>
+            <small>Enter your details once — we'll remember them.</small>
+          </div>
+          <div>
+            <small id="greetNow"></small>
+          </div>
+        </header>
 
-    <nav>
-      <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">Products</a></li>
-        <li><a href="">About</a></li>
-        <li><a href="">Contact</a></li>
-        <li><a href="">Account</a></li>
-      </ul>
-    </nav>
-    <img src="cart.png" width="30px" height="30px">
-  </div>
-  <div class="row">
-    <div class="col-2">
-    <h1>Give Your Workout A New Style</h1>
-<p>Fuel Your Grind with Fit, Form & KARMUX.</p>
-
-
-      <a href="" class="btn">Explore Now &#8594;</a>
-    </div>
-    <div class="col-2">
-      <img src="girl model.jpg" alt="">
-    </div>
-  </div>
-  
-</div>
-</div>
-<!-- 
----------feature categoris-------- -->
-  <div class="categories">
-    <div class="small-container">
-      <div class="row">
-      <div class="col-3">
-        <img src="https://images.meesho.com/images/products/242565287/wckpb_512.webp" alt="">
-      </div>
-      <div class="col-3">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvlf7-jUuqeZZM1BRzMavfoVSb4uOtIOe0Jscm12gF5JXJ8XzljdygRQpbomYQM4n7s8U&usqp=CAU" alt="">
-      </div>
-      <div class="col-3">
-        <img src="https://images.meesho.com/images/products/377042275/kbpht_512.webp" alt="">
-      </div>
-    </div>
-    </div>
-    
-  </div>
-
-
-  <!-- -----------featured products-------- -->
-    <div class="small-container">
-      <h2 class="title">Featured Products</h2>
         <div class="row">
-          <div class="col-4">
-            <img src="https://assets.ajio.com/medias/sys_master/root/20240616/wjZ2/666e3eba6f60443f3143e3ae/-473Wx593H-700090065-red-MODEL2.jpg" alt="">
-            <h4>Red Printed T-shirt</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
+          <div class="col">
+            <label for="stuName">Name</label>
+            <input id="stuName" placeholder="Your name (e.g. Rahul)" />
           </div>
-
-            <div class="col-4">
-            <img src="https://veirdo.in/cdn/shop/files/ai_creative_0000_Layer_6.jpg?v=1736570574" alt="">
-            <h4>Pink Backprint Anime t-Shirt</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
+          <div class="col">
+            <label for="stuRoll">Roll No.</label>
+            <input id="stuRoll" placeholder="Roll number" />
           </div>
-
-            <div class="col-4">
-            <img src="https://veirdo.in/cdn/shop/files/b_0119493a-9927-4550-8323-baefe5f625c0.jpg?v=1724147309" alt="">
-            <h4>Black BackPrinted T-shirt</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-            <div class="col-4">
-            <img src="https://cdn-ilbfgjj.nitrocdn.com/RkhtoOHLXuIranCeZOOYYRtWyTPJwZth/assets/images/optimized/rev-fe8dc1e/printnew.in/wp-content/uploads/2020/01/1-9.jpg" alt="">
-            <h4>Aim High Graphic Printed T shirt</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLVkG4ktZ4VyS_S7qw10plTH2-0A5uKedHJNk61oAOFf3C4HNNy3_LawFueqRyyiv9xyY&usqp=CAU" alt="">
-            <h4>Black Printed T-shirt</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://images.bewakoof.com/t540/women-s-purple-billionaire-girls-club-graphic-printed-oversized-t-shirt-604125-1741325995-1.jpg" alt="">
-            <h4> Women's Purple Billionaire Girls Club</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://5.imimg.com/data5/SELLER/Default/2023/4/301339062/AP/TY/WN/7175905/oversized-crop-t-shirt-girls-500x500.jpg" alt="">
-            <h4>Oversized Crop Printed T-Shirt for Girls Trendy</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/t-shirt/y/9/i/m-white-zoom-half-axxitude-original-imah33x4uc8x3gb4.jpeg?q=90&crop=false" alt="">
-            <h4>Men Graphic Print Round Neck Polyester White T-Shirt</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://images.meesho.com/images/products/401618831/fuliy_512.webp" alt="">
-            <h4>stylish t shirt for men's</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe9qu53iwqM6ryKuaIRu8l3yH0w9uE_kbo7XHbrlO0vCeo7gWWWqdy-dI1nWRJ4DoQCQQ&usqp=CAU" alt="">
-            <h4>Classic Basic T-Shirt- White</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-half-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://images-static.nykaa.com/media/catalog/product/6/c/6ce6932283532101_1.jpg" alt="">
-            <h4>ONLY Unisex Oversized Printed T-Shirt</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
+          <div class="col">
+            <label for="stuDiv">Division</label>
+            <select id="stuDiv">
+              <option value="A">Division A</option>
+              <option value="B">Division B</option>
+              <option value="C">Division C</option>
+              <option value="D">Division D</option>
+              <option value="E">Division E</option>
+            </select>
           </div>
         </div>
-<!-- <|-----------------------------------------------------------------------------------letes product----------------------------------------------|> -->
-        <h2 class="title">Letest Products</h2>
-         <div class="row">
-          <div class="col-4">
-            <img src="https://images.meesho.com/images/products/312662881/odsn3_512.jpg" alt="">
-            <h4>BARBARIQ WOMENS PLAIN T-SHIRTS</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
 
-            <div class="col-4">
-            <img src="https://thalasiknitfab.com/cdn/shop/files/1684566433_3928505copy_490x.progressive.png.jpg?v=1696772402" alt="">
-            <h4>Buy Oversized Anime White Printed T-shirt</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-            <div class="col-4">
-            <img src="https://media-us.landmarkshops.in/cdn-cgi/image/h=831,w=615,q=85,fit=cover/max-new/1000013472994-White-WHITE-1000013472994_01-2100.jpg" alt="">
-            <h4> Girls Printed Cropped T-shirt</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-            <div class="col-4">
-            <img src="https://assets.myntassets.com/w_412,q_60,dpr_2,fl_progressive/assets/images/8938905/2019/4/22/87f43813-3f79-44c6-b24f-10bb2f546ce61555939169332-Roadster-Men-Black-Printed-Round-Neck-T-shirt-22215559391680-1.jpg" alt="">
-            <h4>plusS Studio Burgundy Ruffles</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://www.blackdenim.in/cdn/shop/files/0A0A8808_8ec70cd5-6980-40c3-b3ef-63379324785d.jpg?v=1727680387&width=1946" alt="">
-            <h4>Shop Pick 4 Designer T Shirt</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://cdn.shopify.com/s/files/1/0420/7073/7058/files/4MST2082-03-M45_3155331e-0d89-45d1-896f-eae569ede482.jpg?v=1687438438&quality=20" alt="">
-            <h4> Cross greek art black t shirt for men</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ_AqOr1lwKZZr0wGoJ9ywSDVgOlJ29nUbgw&s" alt="">
-            <h4>Peace Girl Oversized Hip Hop</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://product.hstatic.net/200000000133/product/img_6054_546370a3eb0e45a89452a2c3e4f388f0_grande.jpg" alt="">
-            <h4>T-shirt ngắn tay</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://media.landmarkshops.in/cdn-cgi/image/h=730,w=540,q=85,fit=cover/max-new/1000015150689-White-WHITE-1000015150689_01-2100.jpg" alt="">
-            <h4>ALAYA F x URB_N Women Friends</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://image.hm.com/assets/hm/13/0f/130fdc0255bc4f6f139e08772b6d7ef569aee2c3.jpg?imwidth=2160" alt="">
-            <h4>Oversized Printed T-shirt</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-half-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://whitemoon.in/cdn/shop/files/25_3fc4c37d-25e7-438a-b70c-9397704f070b.jpg?v=1692286191&width=1946" alt="">
-            <h4>WILD DREAMS Half Sleeve Oversized Printed T-Shirt </h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://m.media-amazon.com/images/I/71y576LY3+L._UY1100_.jpg" alt="">
-            <h4>Buy Wear Your Opinion </h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://thebanyantee.com/cdn/shop/files/Baby-Pink-T-shirt_671ae38f-4739-4dd7-8406-8453addce074.jpg?v=1751216048" alt="">
-            <h4>Custom T shirt </h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://rukminim2.flixcart.com/image/850/1250/xif0q/t-shirt/n/x/v/s-ts03241261-kryptar-original-imah3zt73twuycpb.jpeg?q=20&crop=false" alt="">
-            <h4>Kryptar Printed Men Round Neck Black T-Shirt </h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://bantai.in/cdn/shop/files/DSC06533-scaled.jpg?v=1722430906" alt="">
-            <h4>SURVIVE BLACK T-SHIRT</h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://img0.junaroad.com/uiproducts/19600841/zoom_0-1685183930.jpg" alt="">
-            <h4>men white loose fit front and back Printed T-Shirt </h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://assets.ajio.com/medias/sys_master/root/20230609/LsJG/6483127cd55b7d0c635cdc79/-473Wx593H-466230217-offwhite-MODEL.jpg" alt="">
-            <h4>TOM HIDDLE Loose Printed T-Shirt </h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-          <div class="col-4">
-            <img src="https://wrogn.com/cdn/shop/files/1_6aea5a88-cdb5-45ba-b2d4-bd2f08c70f33.webp?v=1744697772" alt="">
-            <h4>Wrogn Men Puff Print Oversized T-shirt </h4>
-            <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <p>$50.00</p>
-          </div>
-
-    </div>
-
-<!-- ofer -->
-
- <div class="offer">
-    <div class="small-container">
-      <div class="row">
-        <div class="col-2">
-          <img src="offer.png" alt="offer-img">
+        <div style="display:flex;gap:10px;margin-top:12px;">
+          <button id="startBtn">Start App</button>
+          <button id="clearBtn" class="secondary">Clear Saved Details</button>
         </div>
-        <div class="col-2">
-          <p>Exclusively Available On KARMUX 27 JULY</p>
-          <h1>ganapti bappa special t shirts </h1>
-          <small>
-            Feliz tarjeta de felicitación del festival hindú Ganesh Chaturthi con texto ganpati bappa morya
-          </small>
-          <a href="" class="btn">Buy Now &#8594;</a>
+
+        <p class="note">Tip: App saves details locally on your browser. To change division later, use the "Change Details" button inside app.</p>
+      </div>
+
+      <!-- TIMETABLE VIEW -->
+      <div id="timetableView" style="display:none;">
+        <header>
+          <div>
+            <h1 id="appTitle">Your Timetable</h1>
+            <small id="studentInfo"></small>
+          </div>
+          <div class="controls">
+            <button id="editDetails" class="secondary">Change Details</button>
+            <button id="toggleEdit" class="secondary">Edit Timetable</button>
+            <button id="resetTimetable" class="secondary">Reset Timetable</button>
+          </div>
+        </header>
+
+        <div class="header-bar">
+          <div>
+            <div class="current" id="currentClassText">—</div>
+            <div class="countdown" id="countdownText">—</div>
+          </div>
+          <div style="text-align:right">
+            <div><small id="todayLabel"></small></div>
+            <div style="margin-top:6px">
+              <select id="divisionSelect" style="padding:8px;border-radius:8px;border:1px solid #e8eef8;">
+                <option value="A">Division A</option>
+                <option value="B">Division B</option>
+                <option value="C">Division C</option>
+                <option value="D">Division D</option>
+                <option value="E">Division E</option>
+              </select>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
- </div> 
 
+        <div class="day-select" id="dayChips"></div>
 
-<!-- ----------------------testimonial---------------- -->
- <div class="testimonial">
-  <div class="small-container">
-    <div class="row">
-      <div class="col-3">
-         <i class="fa fa-quote-left"></i>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus culpa labore totam sequi, voluptas possimus cumque pariatur in porro maiores eos dicta tenetur optio quod ut praesentium earum, laboriosam corrupti.</p>
-        <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-0"></i>
+        <div class="timetable-wrap">
+          <div class="left card">
+            <div style="font-weight:700;margin-bottom:8px">Timetable (structured)</div>
+            <div id="tableContainer"></div>
+
+            <div style="margin-top:10px;display:flex;gap:8px;">
+              <button id="saveTable">Save Timetable</button>
+              <button id="loadImageBtn" class="secondary">Show Timetable Photo</button>
             </div>
-            <img src="logo.png">
-            <h3>
-                KARMUS TEAM
-            </h3>
-      </div>
 
-      <div class="col-3">
-         <i class="fa fa-quote-left"></i>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus culpa labore totam sequi, voluptas possimus cumque pariatur in porro maiores eos dicta tenetur optio quod ut praesentium earum, laboriosam corrupti.</p>
-        <div class="rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-0"></i>
+            <p class="note">You can edit any cell then click Save Timetable. Times must be in HH:MM (24-hour) format.</p>
+          </div>
+
+          <div class="right card">
+            <div style="font-weight:700;margin-bottom:8px">Timetable Photo</div>
+            <div class="img-wrap" id="photoWrap">
+              <img id="divImage" src="" alt="Division timetable photo" />
             </div>
-            <img src="PROCO.png">
-            <h3>
-                @PROCODER97
-            </h3>
+            <p class="note" style="margin-top:10px">Photo shown is the scanned timetable you provided.</p>
+          </div>
+        </div>
+
       </div>
-      
 
     </div>
   </div>
- </div>
 
-<!----------------------------------------------------brands----------------------------------->
+<script>
+/* --------------------------
+  Smart Timetable App (JS)
+   - localStorage keys:
+     student => {name,roll,div}
+     timetable_data => object for all divisions
+----------------------------*/
 
-<div class="brands">
-        <div class="small-container">
-          <div class="row">
-            <div class="col-5">
-              <img src="logo.png" alt="">
-            </div>
-          </div>
-        </div>
-</div>
+// Default structured timetable data (best-effort prefill).
+// NOTE: You should verify these subjects/times and edit in the app if needed.
+// Format: timetable[division][weekday] = array of {subject, start, end}
+// weekday: 0=Sunday,1=Monday,...6=Saturday
+const defaultTimetable = {
+  A: {
+    // Monday
+    1: [
+      {subject:"DM", start:"08:15", end:"09:15"},
+      {subject:"SP", start:"09:15", end:"10:15"},
+      {subject:"Short Break", start:"10:15", end:"10:30"},
+      {subject:"CP", start:"10:30", end:"11:30"},
+      {subject:"ES", start:"11:30", end:"12:30"},
+      {subject:"Lunch/Break", start:"12:30", end:"13:15"},
+      {subject:"DM Lab", start:"13:15", end:"15:15"}
+    ],
+    // Tues
+    2: [
+      {subject:"EMV", start:"08:15", end:"09:15"},
+      {subject:"CF", start:"09:15", end:"10:15"},
+      {subject:"Short Break", start:"10:15", end:"10:30"},
+      {subject:"SP", start:"10:30", end:"11:30"},
+      {subject:"ES", start:"11:30", end:"12:30"},
+      {subject:"Lunch/Break", start:"12:30", end:"13:15"},
+      {subject:"YF", start:"13:15", end:"15:15"}
+    ],
+    // Wed
+    3: [
+      {subject:"ES", start:"08:15", end:"09:15"},
+      {subject:"SP", start:"09:15", end:"10:15"},
+      {subject:"Short Break", start:"10:15", end:"10:30"},
+      {subject:"DTC", start:"10:30", end:"11:30"},
+      {subject:"EMV", start:"11:30", end:"12:30"},
+      {subject:"Lunch/Break", start:"12:30", end:"13:15"},
+      {subject:"YF", start:"13:15", end:"15:15"}
+    ],
+    // Thu
+    4: [
+      {subject:"CP", start:"08:15", end:"09:15"},
+      {subject:"CF", start:"09:15", end:"10:15"},
+      {subject:"Short Break", start:"10:15", end:"10:30"},
+      {subject:"B1:ECS/ Labs", start:"10:30", end:"11:30"},
+      {subject:"ES", start:"11:30", end:"12:30"},
+      {subject:"Lunch/Break", start:"12:30", end:"13:15"},
+      {subject:"DM", start:"13:15", end:"15:15"}
+    ],
+    // Fri
+    5: [
+      {subject:"CP", start:"08:15", end:"09:15"},
+      {subject:"CF", start:"09:15", end:"10:15"},
+      {subject:"Short Break", start:"10:15", end:"10:30"},
+      {subject:"EMW", start:"10:30", end:"11:30"},
+      {subject:"ECS", start:"11:30", end:"12:30"},
+      {subject:"Lunch/Break", start:"12:30", end:"13:15"},
+      {subject:"Free/Guest", start:"13:15", end:"15:15"}
+    ],
+    // Sat (if any)
+    6: []
+  },
+  B: JSON.parse(JSON.stringify({})),
+  C: JSON.parse(JSON.stringify({})),
+  D: JSON.parse(JSON.stringify({})),
+  E: JSON.parse(JSON.stringify({}))
+};
 
+// For divisions B..E copy A's template (user can edit)
+["B","C","D","E"].forEach(d=>{
+  // shallow copy Monday..Friday from A to other divisions as template
+  defaultTimetable[d] = JSON.parse(JSON.stringify(defaultTimetable.A));
+});
 
-      <!------------------------------------------------footer-------------------------->
+// Image mapping (place your images in images/ folder)
+const divisionImages = {
+  A: "divA.jpg",
+  B: "divB.jpg",
+  C: "divC.jpg",
+  D: "divD.jpg",
+  E: "divE.jpg"
+};
 
+// util: parse HH:MM into Date object for today
+function timeToTodayDate(hhmm){
+  const [h,m] = hhmm.split(":").map(Number);
+  const d = new Date();
+  d.setHours(h, m, 0, 0);
+  return d;
+}
 
-      <div class="footer">
-        <div class="container">
-          <div class="row">
-            <div class="footer-col-1">
-              <h3>Thanks For your special Support For New Brand KARMUX</h3>
-              <p>Every Day Has Special Day</p>
-            </div>
+// load/save functions
+function getStudent(){ return JSON.parse(localStorage.getItem("student") || "null"); }
+function saveStudent(obj){ localStorage.setItem("student", JSON.stringify(obj)); }
+function clearStudent(){ localStorage.removeItem("student"); }
 
-            <div class="footer-col-1">
-              <img src="logo.png">
-              <P>Our Purpose Is To Sustainably Make The Pleasure And Benefits OF Sport Accessible To The Many </P>
-            </div>
+function getTimetable(){
+  const raw = localStorage.getItem("timetable_data");
+  if(raw) return JSON.parse(raw);
+  // else save default copy and return
+  localStorage.setItem("timetable_data", JSON.stringify(defaultTimetable));
+  return JSON.parse(JSON.stringify(defaultTimetable));
+}
+function saveTimetable(data){ localStorage.setItem("timetable_data", JSON.stringify(data)); }
 
-            <div class="footer-col-1">
-              <h3>Thanks For your special Support For New Brand KARMUX</h3>
-              <p>Every Day Has Special Day</p>
-            </div>
+// UI elements
+const detailsView = document.getElementById("detailsView");
+const timetableView = document.getElementById("timetableView");
+const stuName = document.getElementById("stuName");
+const stuRoll = document.getElementById("stuRoll");
+const stuDiv = document.getElementById("stuDiv");
+const startBtn = document.getElementById("startBtn");
+const clearBtn = document.getElementById("clearBtn");
+const greetNow = document.getElementById("greetNow");
 
+const studentInfo = document.getElementById("studentInfo");
+const appTitle = document.getElementById("appTitle");
+const editDetails = document.getElementById("editDetails");
+const divisionSelect = document.getElementById("divisionSelect");
+const todayLabel = document.getElementById("todayLabel");
+const currentClassText = document.getElementById("currentClassText");
+const countdownText = document.getElementById("countdownText");
+const tableContainer = document.getElementById("tableContainer");
+const divImage = document.getElementById("divImage");
+const dayChips = document.getElementById("dayChips");
+const toggleEdit = document.getElementById("toggleEdit");
+const saveTableBtn = document.getElementById("saveTable");
+const loadImageBtn = document.getElementById("loadImageBtn");
+const resetTimetableBtn = document.getElementById("resetTimetable");
 
+let timetable = getTimetable();
+let countdownInterval = null;
+let editingMode = false;
+let currentDivision = "A";
+let currentDay = (new Date()).getDay(); // 0..6
+if(currentDay === 0) currentDay = 1; // prefer Monday as default if Sunday
 
+// init greetings
+greetNow.innerText = new Date().toLocaleString();
 
-        
-          </div>
-        </div>
-      </div>
+// prefill details if exist
+const s = getStudent();
+if(s){
+  stuName.value = s.name || "";
+  stuRoll.value = s.roll || "";
+  stuDiv.value = s.div || "A";
+  greetNow.innerText = `Saved: ${s.name} • ${s.div}`;
+}
+
+// event handlers
+startBtn.addEventListener("click", ()=>{
+  const name = stuName.value.trim();
+  const roll = stuRoll.value.trim();
+  const div = stuDiv.value;
+  if(!name || !roll){ alert("Please enter name and roll number."); return; }
+  saveStudent({name, roll, div});
+  openTimetable();
+});
+
+clearBtn.addEventListener("click", ()=>{
+  if(confirm("Remove saved details and reset app?")){
+    clearStudent();
+    localStorage.removeItem("timetable_data");
+    location.reload();
+  }
+});
+
+function openTimetable(){
+  const student = getStudent();
+  if(!student){ alert("No student saved."); return; }
+  detailsView.style.display = "none";
+  timetableView.style.display = "block";
+  currentDivision = student.div || "A";
+  divisionSelect.value = currentDivision;
+  displayStudentInfo();
+  renderDayChips();
+  renderTimetable();
+  loadImageForDivision(currentDivision);
+  startCountdownLoop();
+}
+
+function displayStudentInfo(){
+  const stu = getStudent();
+  studentInfo.innerText = `${stu.name} • Roll: ${stu.roll} • Division: ${stu.div}`;
+  appTitle.innerText = `Timetable — Division ${stu.div}`;
+}
+
+editDetails.addEventListener("click", ()=>{
+  // show details view and allow change
+  const stu = getStudent();
+  if(!stu) return;
+  detailsView.style.display = "block";
+  timetableView.style.display = "none";
+  stuName.value = stu.name;
+  stuRoll.value = stu.roll;
+  stuDiv.value = stu.div;
+});
+
+divisionSelect.addEventListener("change", (e)=>{
+  currentDivision = e.target.value;
+  loadImageForDivision(currentDivision);
+  renderTimetable();
+});
+
+loadImageBtn.addEventListener("click", ()=>{
+  // toggle show/hide image
+  const imgWrap = document.getElementById("photoWrap");
+  if(imgWrap.style.display === "none") imgWrap.style.display = "block";
+  else imgWrap.style.display = "block";
+});
+
+toggleEdit.addEventListener("click", ()=>{
+  editingMode = !editingMode;
+  toggleEdit.innerText = editingMode? "Stop Editing" : "Edit Timetable";
+  renderTimetable();
+});
+
+saveTableBtn.addEventListener("click", ()=>{
+  // read edited table and save into timetable var
+  const inputs = document.querySelectorAll(".tt-input");
+  const newData = JSON.parse(JSON.stringify(timetable)); // clone
+  inputs.forEach(inp=>{
+    const d = inp.dataset;
+    const div = d.div;
+    const day = d.day;
+    const idx = Number(d.idx);
+    const col = d.col; // subject|start|end
+    const val = inp.value.trim();
+    if(!newData[div]) newData[div] = {};
+    if(!newData[div][day]) newData[div][day] = [];
+    // ensure array exists up to idx
+    while(newData[div][day].length <= idx){
+      newData[div][day].push({subject:"",start:"00:00",end:"00:00"});
+    }
+    newData[div][day][idx][col] = val;
+  });
+  timetable = newData;
+  saveTimetable(timetable);
+  alert("Timetable saved!");
+  editingMode = false;
+  toggleEdit.innerText = "Edit Timetable";
+  renderTimetable();
+  startCountdownLoop(); // restart countdown logic in case times changed
+});
+
+resetTimetableBtn.addEventListener("click", ()=>{
+  if(confirm("Reset timetable to default template?")){
+    localStorage.removeItem("timetable_data");
+    timetable = getTimetable();
+    renderTimetable();
+    alert("Reset done.");
+  }
+});
+
+// day chips
+function renderDayChips(){
+  // we'll show Monday..Saturday chips (1..6)
+  const days = ["Mon","Tue","Wed","Thu","Fri","Sat"];
+  dayChips.innerHTML = "";
+  days.forEach((d,i)=>{
+    const idx = i+1;
+    const btn = document.createElement("div");
+    btn.className = "chip " + (currentDay===idx?"active":"");
+    btn.innerText = d;
+    btn.addEventListener("click", ()=>{ currentDay = idx; document.querySelectorAll(".chip").forEach(c=>c.classList.remove("active")); btn.classList.add("active"); renderTimetable(); startCountdownLoop(); });
+    dayChips.appendChild(btn);
+  });
+  todayLabel.innerText = `Day: ${["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][(new Date()).getDay()]}`;
+}
+
+// render structured table for currentDivision & currentDay
+function renderTimetable(){
+  const div = currentDivision;
+  divisionSelect.value = div;
+  const day = currentDay;
+  const dayData = (timetable[div] && timetable[div][day]) ? timetable[div][day] : [];
+  // create table rows for each item
+  let html = `<table><thead><tr><th>#</th><th>Subject</th><th>Start</th><th>End</th></tr></thead><tbody>`;
+  if(dayData.length === 0){
+    html += `<tr><td colspan="4">No data for this day. Click "Edit Timetable" to add.</td></tr>`;
+  } else {
+    dayData.forEach((it, idx)=>{
+      if(editingMode){
+        html += `<tr class="editable">
+          <td>${idx+1}</td>
+          <td><input class="tt-input" data-div="${div}" data-day="${day}" data-idx="${idx}" data-col="subject" value="${escapeHtml(it.subject)}"/></td>
+          <td><input class="tt-input" data-div="${div}" data-day="${day}" data-idx="${idx}" data-col="start" value="${escapeHtml(it.start)}"/></td>
+          <td><input class="tt-input" data-div="${div}" data-day="${day}" data-idx="${idx}" data-col="end" value="${escapeHtml(it.end)}"/></td>
+        </tr>`;
+      } else {
+        html += `<tr>
+          <td>${idx+1}</td>
+          <td>${escapeHtml(it.subject)}</td>
+          <td>${escapeHtml(it.start)}</td>
+          <td>${escapeHtml(it.end)}</td>
+        </tr>`;
+      }
+    });
+  }
+  html += `</tbody></table>`;
+  tableContainer.innerHTML = html;
+  // update image
+  loadImageForDivision(div);
+}
+
+// load image for current division
+function loadImageForDivision(div){
+  const src = divisionImages[div] || "";
+  divImage.src = src;
+  // if image not found, show fallback text (browser will show broken image)
+}
+
+// countdown logic: find current or next class and show countdown
+function findCurrentOrNext(div, day){
+  const now = new Date();
+  const list = (timetable[div] && timetable[div][day]) ? timetable[div][day] : [];
+  // convert each to startDate,endDate for same day
+  const parsed = list.map((it, idx)=>{
+    const s = timeToTodayDate(it.start);
+    const e = timeToTodayDate(it.end);
+    return {...it, idx, startDate:s, endDate:e};
+  });
+
+  // first check if any class is currently running
+  for(const it of parsed){
+    if(now >= it.startDate && now < it.endDate){
+      return {type:"current", item:it};
+    }
+  }
+  // else find next class whose start > now
+  const upcoming = parsed.filter(it => it.startDate > now).sort((a,b)=>a.startDate - b.startDate);
+  if(upcoming.length>0) return {type:"next", item:upcoming[0]};
+  // none left
+  return {type:"none", item:null};
+}
+
+function updateHeader(){
+  const div = currentDivision;
+  const day = currentDay;
+  const result = findCurrentOrNext(div, day);
+  if(result.type === "current"){
+    const it = result.item;
+    currentClassText.innerText = `Ongoing: ${it.subject} — ends at ${it.end}`;
+    // countdown to end
+    setCountdownTo(it.endDate, ()=>{ startCountdownLoop(); });
+  } else if(result.type === "next"){
+    const it = result.item;
+    currentClassText.innerText = `Next: ${it.subject} — starts at ${it.start}`;
+    setCountdownTo(it.startDate, ()=>{ startCountdownLoop(); });
+  } else {
+    currentClassText.innerText = "No more classes today";
+    countdownText.innerText = "";
+  }
+}
+
+// start interval
+function startCountdownLoop(){
+  // clear previous interval
+  if(countdownInterval) clearInterval(countdownInterval);
+  // immediate update
+  updateHeader();
+  // keep updating every second (header will manage switching when time reached)
+  countdownInterval = setInterval(()=> updateHeader(), 1000);
+}
+
+function setCountdownTo(targetDate, onFinish){
+  function update(){
+    const now = new Date();
+    let diff = targetDate - now;
+    if(diff <= 0){
+      countdownText.innerText = "00:00:00";
+      if(onFinish) onFinish();
+      return;
+    }
+    const hrs = Math.floor(diff / (1000*60*60));
+    diff -= hrs * (1000*60*60);
+    const mins = Math.floor(diff / (1000*60));
+    diff -= mins * (1000*60);
+    const secs = Math.floor(diff / 1000);
+    countdownText.innerText = `${pad2(hrs)}:${pad2(mins)}:${pad2(secs)}`;
+  }
+  update();
+  // We rely on startCountdownLoop calling updateHeader every second, so no separate interval here.
+}
+
+function pad2(n){ return n.toString().padStart(2,"0"); }
+
+function escapeHtml(s){
+  if(!s) return "";
+  return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;");
+}
+
+/* On initial load: if student saved -> open timetable */
+window.addEventListener("load", ()=>{
+  const st = getStudent();
+  if(st){
+    openTimetable();
+  }
+});
+
+// helper: reset timetable_data to default (used by Reset)
+function resetToDefault(){
+  timetable = JSON.parse(JSON.stringify(defaultTimetable));
+  saveTimetable(timetable);
+}
+
+/* small UX improvements: show current weekday name */
+(function showWeekdayName(){
+  const now = new Date();
+  const names = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+  document.title = `Smart Timetable — ${names[now.getDay()]}`;
+})();
+
+/* End of script */
+</script>
 </body>
 </html>
